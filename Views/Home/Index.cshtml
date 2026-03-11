@@ -1,0 +1,171 @@
+﻿<div class="container">
+
+    <h1>Hello Tintu ❤️</h1>
+    <p>I made something special just for you. Click start and see my surprise.</p>
+
+    <button class="start-btn" onclick="startExperience(event)">
+        Start →
+    </button>
+
+</div>
+
+<style>
+
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Segoe UI';
+        background: linear-gradient(135deg,#ffd6e0,#ffe9ec);
+        overflow: hidden;
+    }
+
+    .container {
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 40px;
+        color: #ff4d6d;
+    }
+
+    p {
+        font-size: 20px;
+        color: #444;
+    }
+
+    /* Button */
+
+    .start-btn {
+        margin-top: 25px;
+        padding: 16px 40px;
+        font-size: 18px;
+        border: none;
+        border-radius: 40px;
+        background: linear-gradient(45deg,#ff4d6d,#ff758c);
+        color: white;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(255,77,109,0.4);
+        transition: 0.3s;
+    }
+
+        .start-btn:hover {
+            transform: scale(1.08);
+        }
+
+    /* Ripple effect */
+
+    .ripple {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.7);
+        transform: scale(0);
+        animation: ripple 0.6s linear;
+    }
+
+    @@keyframes ripple {
+        to
+
+    {
+        transform: scale(4);
+        opacity: 0;
+    }
+
+    }
+
+    /* Hearts */
+
+    .heart {
+        position: absolute;
+        font-size: 20px;
+        animation: float 2s linear forwards;
+    }
+
+    @@keyframes float {
+        0%
+
+    {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-150px);
+        opacity: 0;
+    }
+
+    }
+
+    /* Page fade */
+
+    .fade-out {
+        animation: fadeOut 0.7s forwards;
+    }
+
+    @@keyframes fadeOut {
+        to
+
+    {
+        opacity: 0;
+        transform: scale(1.1);
+    }
+
+    }
+
+</style>
+
+<script>
+
+    function startExperience(e){
+
+        const button = e.currentTarget;
+
+        /* Ripple */
+
+        const circle = document.createElement("span");
+        const diameter = Math.max(button.clientWidth, button.clientHeight);
+
+        circle.style.width = circle.style.height = diameter + "px";
+        circle.style.left = e.offsetX - diameter/2 + "px";
+        circle.style.top = e.offsetY - diameter/2 + "px";
+
+        circle.classList.add("ripple");
+
+        button.appendChild(circle);
+
+        setTimeout(()=>circle.remove(),600);
+
+
+        /* Hearts burst */
+
+        for(let i=0;i<10;i++){
+
+            const heart=document.createElement("div");
+
+            heart.innerHTML="❤️";
+            heart.classList.add("heart");
+
+            heart.style.left = e.pageX + (Math.random()*60-30) + "px";
+            heart.style.top = e.pageY + "px";
+
+            document.body.appendChild(heart);
+
+            setTimeout(()=>{
+                heart.remove();
+            },2000);
+        }
+
+        /* Smooth transition */
+
+        document.body.classList.add("fade-out");
+
+        setTimeout(()=>{
+            window.location.href="/Home/Chat";
+        },700);
+    }
+
+</script>

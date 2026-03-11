@@ -1,0 +1,191 @@
+﻿<h2 class="timeline-title">Our Story Timeline ❤️</h2>
+
+<div class="timeline">
+
+    <div class="timeline-item">
+        <div class="heart">❤️</div>
+        <div class="content">
+            <h3>25 September 2024</h3>
+            <p>The day we met on Snapchat. A simple moment that started our story.</p>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="heart">❤️</div>
+        <div class="content">
+            <h3>First Conversation</h3>
+            <p>A simple "Hi" turned into something special.</p>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="heart">❤️</div>
+        <div class="content">
+            <h3>Late Night Chats</h3>
+            <p>Messages that made nights shorter and smiles bigger.</p>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="heart">❤️</div>
+        <div class="content">
+            <h3>Beautiful Moments</h3>
+            <p>Every snap and every photo became a memory.</p>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="heart">❤️</div>
+        <div class="content">
+            <h3>Today</h3>
+            <p>A day to celebrate someone amazing — you.</p>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="heart">❤️</div>
+        <div class="content">
+            <h3>The Future</h3>
+            <p>More conversations, more smiles, and more beautiful moments.</p>
+        </div>
+    </div>
+
+</div>
+<div style="text-align:center;margin-top:50px">
+    <a href="/Home/Final">
+        <button class="final-btn">One Last Surprise →</button>
+    </a>
+</div>
+
+<style>
+
+    body {
+        font-family: Segoe UI;
+        background: linear-gradient(135deg,#ffd6e0,#ffe9ec);
+    }
+
+    .timeline-title {
+        text-align: center;
+        margin-top: 40px;
+        color: #ff4d6d;
+    }
+
+    .timeline {
+        position: relative;
+        width: 80%;
+        margin: auto;
+        margin-top: 40px;
+    }
+
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        width: 4px;
+        height: 100%;
+        background: #ff758c;
+        transform: translateX(-50%);
+    }
+
+    .timeline-item {
+        width: 50%;
+        padding: 20px 40px;
+        position: relative;
+        opacity: 0;
+        transform: translateY(40px);
+        transition: 0.6s;
+    }
+
+    .timeline-item:nth-child(odd) {
+        left: 0;
+        text-align: right;
+    }
+
+    .timeline-item:nth-child(even) {
+        left: 50%;
+    }
+
+    .content {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .heart {
+        position: absolute;
+        top: 20px;
+        font-size: 22px;
+        animation: beat 1s infinite;
+    }
+
+    .timeline-item:nth-child(odd) .heart {
+        right: -15px;
+    }
+
+    .timeline-item:nth-child(even) .heart {
+        left: -15px;
+    }
+
+    @@keyframes beat {
+        0%
+
+    {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.3);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+
+    }
+
+    .timeline-item.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .final-btn {
+        padding: 15px 35px;
+        border: none;
+        border-radius: 30px;
+        background: linear-gradient(45deg,#ff4d6d,#ff758c);
+        color: white;
+        font-size: 18px;
+        cursor: pointer;
+    }
+
+
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+
+    const items = document.querySelectorAll(".timeline-item");
+
+    function showTimeline(){
+
+        const trigger = window.innerHeight * 0.85;
+
+        items.forEach(item => {
+
+            const top = item.getBoundingClientRect().top;
+
+            if(top < trigger){
+                item.classList.add("show");
+            }
+
+        });
+
+    }
+
+    window.addEventListener("scroll", showTimeline);
+
+    showTimeline();
+
+</script>

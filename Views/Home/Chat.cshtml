@@ -1,0 +1,191 @@
+﻿@{
+    ViewData["Title"] = "Our Story";
+}
+
+<h2 style="text-align:center">Our Story ❤️</h2>
+
+<div class="chatbox" id="chat"></div>
+
+<div style="text-align:center;margin-top:20px;">
+    <a href="/Home/Photos">
+        <button class="nextbtn">Continue Our Story →</button>
+    </a>
+</div>
+
+<style>
+
+    body {
+        background: #fff0f5;
+        font-family: Arial;
+    }
+
+    /* chat container */
+
+    .chatbox {
+        max-width: 400px;
+        margin: auto;
+        background: white;
+        padding: 15px;
+        border-radius: 20px;
+        height: 420px;
+        overflow: auto;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+
+    /* chat bubble */
+
+    .message {
+        padding: 10px 15px;
+        margin: 8px;
+        border-radius: 18px;
+        max-width: 70%;
+        font-size: 14px;
+    }
+
+    /* your message */
+
+    .you {
+        background: #0084ff;
+        color: white;
+        margin-left: auto;
+        text-align: right;
+    }
+
+    /* her message */
+
+    .her {
+        background: #e4e6eb;
+    }
+
+    /* system message */
+
+    .system {
+        background: #ffd6e7;
+        margin: auto;
+        text-align: center;
+    }
+
+    /* button */
+
+    .nextbtn {
+        padding: 12px 25px;
+        font-size: 16px;
+        border: none;
+        border-radius: 25px;
+        background: #ff4d6d;
+        color: white;
+        cursor: pointer;
+    }
+
+    /* floating hearts */
+
+    .heart {
+        position: fixed;
+        font-size: 20px;
+        animation: floatUp 4s linear forwards;
+    }
+
+    @@keyframes floatUp {
+        0%
+
+    {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-600px);
+        opacity: 0;
+    }
+
+    }
+
+
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+
+    /* CHAT MESSAGES */
+
+    const messages=[
+
+    { text:"25 Sept 2024", type:"system" },
+
+    { text:"Hi", type:"her" },
+
+    { text:"Hi", type:"her" },
+
+    { text:"hy", type:"you" },
+
+    { text:"Where are you from?", type:"her" },
+
+    { text:"Kollam", type:"you" },
+
+    { text:"Nth cheyyunnu?", type:"her" },
+
+    { text:"That conversation changed everything ❤️", type:"system" }
+
+    ];
+
+    let index=0;
+
+    function showMessage(){
+
+    if(index>=messages.length) return;
+
+    const chat=document.getElementById("chat");
+
+    const msg=document.createElement("div");
+
+    msg.className="message "+messages[index].type;
+
+    msg.innerText=messages[index].text;
+
+    chat.appendChild(msg);
+
+    chat.scrollTop=chat.scrollHeight;
+
+    index++;
+
+    setTimeout(showMessage,1500);
+
+    }
+
+    showMessage();
+
+    /* FLOATING HEARTS */
+
+    function createHeart(){
+
+    const heart=document.createElement("div");
+
+    heart.className="heart";
+
+    heart.innerHTML="❤️";
+
+    heart.style.left=Math.random()*100+"vw";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{
+    heart.remove();
+    },4000);
+
+    }
+
+    setInterval(createHeart,600);
+
+    /* CONFETTI */
+
+    setTimeout(function(){
+
+    confetti({
+    particleCount:150,
+    spread:120
+    });
+
+    },4000);
+
+</script>

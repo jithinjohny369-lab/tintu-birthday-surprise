@@ -1,0 +1,268 @@
+﻿@{
+    ViewData["Title"] = "My Letter";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+
+        body {
+            background: linear-gradient(135deg,#ff758c,#ff7eb3);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI';
+            min-height: 100vh;
+            overflow-y: hidden;
+        }
+
+        /* Love letter paper */
+
+        .letter-box {
+            width: 650px;
+            max-width: 90%;
+            height: 420px; /* fixed height */
+            overflow-y: auto; /* enables scroll */
+
+            background: white;
+            padding: 40px;
+            border-radius: 18px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            line-height: 1.8;
+        }
+
+        /* Title */
+
+        .title {
+            text-align: center;
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+
+        /* typing text */
+
+        #letterText {
+            font-size: 20px;
+            color: #333;
+            white-space: pre-line;
+        }
+
+        /* cursor */
+
+        .cursor {
+            display: inline-block;
+            width: 3px;
+            background: black;
+            margin-left: 5px;
+            animation: blink 1s infinite;
+        }
+
+        @@keyframes blink {
+            0% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0
+            }
+
+            100% {
+                opacity: 1
+            }
+        }
+
+        /* floating hearts */
+
+        .heart {
+            position: absolute;
+            bottom: -20px;
+            color: red;
+            animation: float 6s linear infinite;
+        }
+
+        @@keyframes float {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-900px) scale(2);
+                opacity: 0;
+            }
+        }
+
+        .letter-box::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .letter-box::-webkit-scrollbar-thumb {
+            background: #ff758c;
+            border-radius: 10px;
+        }
+
+        #envelope-container {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg,#ffd6e0,#ffe9ec);
+        }
+
+        .envelope {
+            width: 220px;
+            height: 150px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .body {
+            width: 220px;
+            height: 150px;
+            background: #ff758c;
+            border-radius: 6px;
+            position: absolute;
+        }
+
+        .flap {
+            width: 0;
+            height: 0;
+            border-left: 110px solid transparent;
+            border-right: 110px solid transparent;
+            border-bottom: 75px solid #ff4d6d;
+            position: absolute;
+            top: -75px;
+            transition: 0.6s;
+        }
+
+        .envelope.open .flap {
+            transform: rotateX(180deg);
+        }
+
+        .message {
+            position: absolute;
+            top: 55px;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 18px;
+        }
+
+        #letterSection {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="envelope-container">
+
+        <div class="envelope" onclick="openEnvelope()">
+            <div class="flap"></div>
+            <div class="body"></div>
+            <div class="message">Open Me 💌</div>
+        </div>
+
+    </div>
+
+
+    <div id="letterSection" style="display:none">
+
+        <div class="letter-box">
+
+            <div class="title">💌 My Letter</div>
+
+            <div id="letterText"></div><span class="cursor"></span>
+
+            <div class="next-button">
+                <a href="/Home/Timeline">
+                    <button style="padding:12px 25px;border:none;background:#ff4d6d;color:white;border-radius:25px;">Our Future →</button>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <script>
+
+        /* Your letter text */
+
+        const message = `From the moment I met you, something in my world quietly changed.
+        Your smile makes my days brighter,your voice brings calm to my heart,and your presence makes everything feel right.
+        Tintu, you are not just special to me… you are one of the most beautiful parts of my life.
+        On your birthday, I just want to remind you how amazing, kind, and wonderful you truly are.
+        Thank you for being the person you are. And thank you for being in my life.
+        No matter where life takes us, I will always wish for your happiness and your smile.
+        Happy Birthday, Tintu❤️.
+        Kunjaa... Ith ellam google le aanu.. Ithe pole ezhuthan ulla kazhiv onnum enik illa.
+        Ntha ippo paraya.. Bdayk nthelum surprice kodukkanam ennu kure aayi vicharikkanu.
+        But onnum angottu sheri aayilla.. appol aanu insta oru reel kandath.
+        Valentines dayk ntho ithe pole oru surprice.. Ath kandappo kollam enn thonni..
+        So athe pole try cheythe aanu.. Ninak nalla pole ishttam aayi kanum enik ariya..
+        Happy birthday kunjaa`;
+
+        /* Typing effect */
+
+        let i = 0;
+
+        function typeLetter(){
+            if(i < message.length){
+                document.getElementById("letterText").innerHTML += message.charAt(i);
+                i++;
+                setTimeout(typeLetter,40);
+            }
+        }
+
+        typeLetter();
+
+        /* Floating hearts */
+
+        setInterval(()=>{
+            const heart = document.createElement("div");
+
+            heart.classList.add("heart");
+            heart.innerHTML = "❤️";
+
+            heart.style.left = Math.random()*100+"%";
+            heart.style.fontSize = (20 + Math.random()*30)+"px";
+
+            document.body.appendChild(heart);
+
+            setTimeout(()=>{
+                heart.remove();
+            },6000);
+
+        },300);
+
+        function openEnvelope(){
+
+            const envelope = document.querySelector(".envelope");
+
+            envelope.classList.add("open");
+
+            setTimeout(()=>{
+
+                document.getElementById("envelope-container").style.display="none";
+                document.getElementById("letterSection").style.display="flex";
+
+                startTyping();
+
+            },700);
+
+        }
+
+    </script>
+
+</body>
+</html>
